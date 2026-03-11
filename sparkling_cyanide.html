@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sparkling Cyanide — Character Dossiers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;700&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #7a6330;
+    --cream: #f5eed8;
+    --ink: #0d0a06;
+    --shadow: rgba(0,0,0,0.7);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #080604;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(80, 40, 10, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(40, 20, 5, 0.2) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23080604'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23120e08' opacity='0.6'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23120e08' opacity='0.4'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    font-family: 'Crimson Text', serif;
+    color: var(--cream);
+    padding: 60px 40px;
+  }
+
+  /* ── HEADER ── */
+  .masthead {
+    text-align: center;
+    margin-bottom: 70px;
+    position: relative;
+  }
+
+  .masthead::before, .masthead::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 18px auto;
+    width: 70%;
+  }
+
+  .masthead-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .masthead h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 300;
+    letter-spacing: 4px;
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .masthead-byline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(245,238,216,0.5);
+    letter-spacing: 2px;
+    margin-top: 6px;
+  }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 36px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ── CARD ── */
+  .card {
+    position: relative;
+    background: linear-gradient(160deg, #1a120a 0%, #0e0b06 60%, #130e08 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+  .card:nth-child(5) { animation-delay: 0.5s; }
+  .card:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Corner ornaments */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 30%),
+      linear-gradient(315deg, rgba(201,168,76,0.06) 0%, transparent 30%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Top accent bar — colour per role */
+  .card-accent {
+    height: 3px;
+    width: 100%;
+  }
+
+  /* Header section */
+  .card-header {
+    padding: 28px 28px 20px;
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+
+  .role-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid currentColor;
+    display: inline-block;
+    margin-bottom: 14px;
+    opacity: 0.85;
+  }
+
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+    letter-spacing: 1px;
+  }
+
+  .card-name em {
+    display: block;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(245,238,216,0.55);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  /* Deco divider */
+  .deco-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 28px;
+    margin: 20px 0 0;
+  }
+
+  .deco-line { flex: 1; height: 1px; background: rgba(201,168,76,0.25); }
+
+  .deco-diamond {
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--gold-dim);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* Body */
+  .card-body {
+    padding: 20px 28px 28px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  .field-label {
+    font-family: 'Cinzel', serif;
+    font-size: 8.5px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 5px;
+  }
+
+  .field-text {
+    font-family: 'Crimson Text', serif;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: rgba(245,238,216,0.82);
+  }
+
+  /* Traits pills */
+  .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 4px;
+  }
+
+  .trait {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: rgba(201,168,76,0.75);
+    background: rgba(201,168,76,0.04);
+  }
+
+  /* Motive block */
+  .motive-block {
+    margin-top: 20px;
+    padding: 14px 16px;
+    border-left: 2px solid;
+    background: rgba(0,0,0,0.25);
+    position: relative;
+  }
+
+  .motive-block .field-label {
+    margin-bottom: 6px;
+  }
+
+  .motive-block .field-text {
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  /* Watermark glyph */
+  .card-glyph {
+    position: absolute;
+    bottom: 16px;
+    right: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    line-height: 1;
+    opacity: 0.04;
+    color: var(--gold);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+  }
+
+  /* ── ROLE COLOURS ── */
+  /* Victim – crimson */
+  .card[data-role="victim"] .card-accent { background: linear-gradient(to right, #8b0000, #c0392b, #8b0000); }
+  .card[data-role="victim"] .role-badge { color: #c0392b; border-color: #c0392b; }
+  .card[data-role="victim"] .motive-block { border-color: #c0392b; }
+
+  /* Husband – slate blue */
+  .card[data-role="husband"] .card-accent { background: linear-gradient(to right, #1a3a5c, #2e6da4, #1a3a5c); }
+  .card[data-role="husband"] .role-badge { color: #4a8fcb; border-color: #4a8fcb; }
+  .card[data-role="husband"] .motive-block { border-color: #2e6da4; }
+
+  /* Sister – dusty rose */
+  .card[data-role="sister"] .card-accent { background: linear-gradient(to right, #5a2a3a, #9b5a70, #5a2a3a); }
+  .card[data-role="sister"] .role-badge { color: #c47a94; border-color: #c47a94; }
+  .card[data-role="sister"] .motive-block { border-color: #9b5a70; }
+
+  /* Lover – amber */
+  .card[data-role="lover"] .card-accent { background: linear-gradient(to right, #6b3a00, #d4881a, #6b3a00); }
+  .card[data-role="lover"] .role-badge { color: #d4881a; border-color: #d4881a; }
+  .card[data-role="lover"] .motive-block { border-color: #d4881a; }
+
+  /* Secretary – teal */
+  .card[data-role="secretary"] .card-accent { background: linear-gradient(to right, #0d3a3a, #1a7a7a, #0d3a3a); }
+  .card[data-role="secretary"] .role-badge { color: #2aacac; border-color: #2aacac; }
+  .card[data-role="secretary"] .motive-block { border-color: #1a7a7a; }
+
+  /* Investigator – gold */
+  .card[data-role="investigator"] .card-accent { background: linear-gradient(to right, var(--gold-dim), var(--gold), var(--gold-dim)); }
+  .card[data-role="investigator"] .role-badge { color: var(--gold); border-color: var(--gold); }
+  .card[data-role="investigator"] .motive-block { border-color: var(--gold-dim); }
+
+  /* ── FOOTER ── */
+  .mastfoot {
+    text-align: center;
+    margin-top: 70px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: rgba(201,168,76,0.3);
+  }
+
+  .mastfoot::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.25), transparent);
+    width: 50%;
+    margin: 0 auto 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <p class="masthead-sub">Agatha Christie &mdash; Character Dossiers</p>
+  <h1><em>Sparkling Cyanide</em></h1>
+  <p class="masthead-byline">Six Suspects. One Deadly Evening. No Survivors of Innocence.</p>
+</div>
+
+<div class="grid">
+
+  <!-- ROSEMARY BARTON -->
+  <div class="card" data-role="victim">
+    <div class="card-accent"></div>
+    <div class="card-header">
+      <span class="role-badge">The Victim</span>
+      <div class="card-name">
+        Rosemary Barton
+        <em>Beautiful. Brilliant. Buried.</em>
+      </div>
+    </div>
+    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Background</div>
+        <div class="field-text">A beautiful, wealthy, and socially admired woman of high society — known for her charm, glamour, and the secrets she kept close.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Personality</div>
+        <div class="field-text">Magnetic, confident, and enigmatic. She enjoyed attention and luxury while concealing the darker corners of her life.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Traits</div>
+        <div class="traits">
+          <span class="trait">Charismatic</span>
+          <span class="trait">Impulsive</span>
+          <span class="trait">Emotionally Complex</span>
+        </div>
+      </div>
+      <div class="motive-block">
+        <div class="field-label">Motive Against Her</div>
+        <div class="field-text">Her wealth, romantic entanglements, and hidden secrets bred jealousy, resentment, and financial temptation among those closest to her.</div>
+      </div>
+    </div>
+    <div class="card-glyph">R</div>
+  </div>
+
+  <!-- GEORGE BARTON -->
+  <div class="card" data-role="husband">
+    <div class="card-accent"></div>
+    <div class="card-header">
+      <span class="role-badge">The Husband</span>
+      <div class="card-name">
+        George Barton
+        <em>Devoted. Determined. Dangerous?</em>
+      </div>
+    </div>
+    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Background</div>
+        <div class="field-text">A successful businessman and Rosemary's husband. After her death, he becomes consumed by one singular purpose: to uncover the truth.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Personality</div>
+        <div class="field-text">Reserved, intelligent, and emotionally restrained. Initially appears devoted, though deeper tensions within the marriage may tell another story.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Traits</div>
+        <div class="traits">
+          <span class="trait">Analytical</span>
+          <span class="trait">Controlled</span>
+          <span class="trait">Determined</span>
+        </div>
+      </div>
+      <div class="motive-block">
+        <div class="field-label">Suspected Motive</div>
+        <div class="field-text">Financial gain through inheritance and a simmering jealousy over Rosemary's suspected romantic affairs outside their marriage.</div>
+      </div>
+    </div>
+    <div class="card-glyph">G</div>
+  </div>
+
+  <!-- IRIS MARLE -->
+  <div class="card" data-role="sister">
+    <div class="card-accent"></div>
+    <div class="card-header">
+      <span class="role-badge">The Sister</span>
+      <div class="card-name">
+        Iris Marle
+        <em>Overlooked. Observant. Free?</em>
+      </div>
+    </div>
+    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Background</div>
+        <div class="field-text">Rosemary's quieter, less flamboyant younger sister — a woman who spent her life in the long shadow cast by her glamorous sibling.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Personality</div>
+        <div class="field-text">Gentle, thoughtful, and somewhat insecure. She struggles beneath the weight of constant comparison to the woman the world adored.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Traits</div>
+        <div class="traits">
+          <span class="trait">Sensitive</span>
+          <span class="trait">Modest</span>
+          <span class="trait">Observant</span>
+        </div>
+      </div>
+      <div class="motive-block">
+        <div class="field-label">Suspected Motive</div>
+        <div class="field-text">Rosemary's death could bring financial inheritance — and, at last, liberation from a life spent diminished beside a brighter flame.</div>
+      </div>
+    </div>
+    <div class="card-glyph">I</div>
+  </div>
+
+  <!-- ANTHONY BROWNE -->
+  <div class="card" data-role="lover">
+    <div class="card-accent"></div>
+    <div class="card-header">
+      <span class="role-badge">The Lover</span>
+      <div class="card-name">
+        Anthony Browne
+        <em>Passionate. Possessive. Unravelling.</em>
+      </div>
+    </div>
+    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Background</div>
+        <div class="field-text">A passionate and somewhat reckless man, deeply entangled in a romantic affair with Rosemary — an affair that consumed him entirely.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Personality</div>
+        <div class="field-text">Intense, emotional, and impulsive. His devotion walked the fine and terrifying line between love and obsession.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Traits</div>
+        <div class="traits">
+          <span class="trait">Passionate</span>
+          <span class="trait">Dramatic</span>
+          <span class="trait">Possessive</span>
+        </div>
+      </div>
+      <div class="motive-block">
+        <div class="field-label">Suspected Motive</div>
+        <div class="field-text">Romantic jealousy, obsessive attachment, and the emotional turmoil of a man who could not bear to share — or lose — what he believed was his.</div>
+      </div>
+    </div>
+    <div class="card-glyph">A</div>
+  </div>
+
+  <!-- RUTH LESSING -->
+  <div class="card" data-role="secretary">
+    <div class="card-accent"></div>
+    <div class="card-header">
+      <span class="role-badge">The Secretary</span>
+      <div class="card-name">
+        Ruth Lessing
+        <em>Efficient. Ambitious. Calculating.</em>
+      </div>
+    </div>
+    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Background</div>
+        <div class="field-text">Efficient and highly intelligent, she works in close proximity to George Barton — quietly managing his affairs with immaculate discretion.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Personality</div>
+        <div class="field-text">Ambitious, controlled, and keenly observant. Behind her professional composure lies a woman of formidable personal ambition and quiet longing.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Traits</div>
+        <div class="traits">
+          <span class="trait">Calculating</span>
+          <span class="trait">Disciplined</span>
+          <span class="trait">Discreet</span>
+        </div>
+      </div>
+      <div class="motive-block">
+        <div class="field-label">Suspected Motive</div>
+        <div class="field-text">A secret love for George and the tantalising prospect of ascending — socially and financially — if Rosemary were no longer in the picture.</div>
+      </div>
+    </div>
+    <div class="card-glyph">L</div>
+  </div>
+
+  <!-- COLONEL RACE -->
+  <div class="card" data-role="investigator">
+    <div class="card-accent"></div>
+    <div class="card-header">
+      <span class="role-badge">The Investigator</span>
+      <div class="card-name">
+        Colonel Race
+        <em>Perceptive. Patient. Relentless.</em>
+      </div>
+    </div>
+    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
+    <div class="card-body">
+      <div class="field">
+        <div class="field-label">Background</div>
+        <div class="field-text">A seasoned investigator with a distinguished record in complex, high-stakes cases. He has seen the worst of human nature — and remained unmoved.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Personality</div>
+        <div class="field-text">Calm, logical, and highly perceptive. He reads people the way others read books — carefully, quietly, and with devastating accuracy.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Key Traits</div>
+        <div class="traits">
+          <span class="trait">Analytical</span>
+          <span class="trait">Patient</span>
+          <span class="trait">Authoritative</span>
+        </div>
+      </div>
+      <div class="motive-block">
+        <div class="field-label">Personal Motive</div>
+        <div class="field-text">None. He serves only one master: the truth — and he will not rest until it is laid bare for all to see.</div>
+      </div>
+    </div>
+    <div class="card-glyph">C</div>
+  </div>
+
+</div>
+
+<div class="mastfoot">A. Christie &nbsp;·&nbsp; 1945 &nbsp;·&nbsp; Six Characters &nbsp;·&nbsp; One Murder</div>
+
+</body>
+</html>
