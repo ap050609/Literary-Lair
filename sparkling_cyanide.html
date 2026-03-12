@@ -473,6 +473,22 @@ body {
   .tab-btn .tb-tagline { display: none; }
   .panel { padding: 24px 20px 40px; }
 }
+  @media print {
+
+  .sidebar {
+    display: none;
+  }
+
+  .panel {
+    display: block !important;
+    page-break-after: always;
+  }
+
+  .main {
+    overflow: visible;
+  }
+
+}
 </style>
 </head>
 <body>
