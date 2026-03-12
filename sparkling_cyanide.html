@@ -3,547 +3,1107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sparkling Cyanide — Character Dossiers</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;700&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+<title>Sparkling Cyanide — Case Dossier</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --gold-dim: #7a6330;
-    --cream: #f5eed8;
-    --ink: #0d0a06;
-    --shadow: rgba(0,0,0,0.7);
-  }
+:root {
+  --ink: #09070d;
+  --paper: #f2ead8;
+  --paper-dark: #e8ddc4;
+  --paper-aged: #d9cca8;
+  --gold: #b8860b;
+  --gold-light: #d4a017;
+  --red: #8b1a1a;
+  --red-light: #c0392b;
+  --text: #1a1208;
+  --text-muted: #5a4a2a;
+  --text-faint: #8a7a5a;
+  --tab-w: 220px;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    background-color: #080604;
-    background-image:
-      radial-gradient(ellipse at 20% 50%, rgba(80, 40, 10, 0.15) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(40, 20, 5, 0.2) 0%, transparent 50%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23080604'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23120e08' opacity='0.6'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23120e08' opacity='0.4'/%3E%3C/svg%3E");
-    min-height: 100vh;
-    font-family: 'Crimson Text', serif;
-    color: var(--cream);
-    padding: 60px 40px;
-  }
+body {
+  background: #1a1208;
+  font-family: 'EB Garamond', serif;
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* ── HEADER ── */
-  .masthead {
-    text-align: center;
-    margin-bottom: 70px;
-    position: relative;
-  }
+/* ── MASTHEAD ── */
+.masthead {
+  background: var(--ink);
+  border-bottom: 3px solid var(--gold);
+  padding: 28px 40px 22px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
 
-  .masthead::before, .masthead::after {
-    content: '';
-    display: block;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    margin: 18px auto;
-    width: 70%;
-  }
+.masthead-left .eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
 
-  .masthead-sub {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 6px;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
+.masthead-left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 400;
+  color: var(--paper);
+  line-height: 1;
+}
 
-  .masthead h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(42px, 7vw, 80px);
-    font-weight: 300;
-    letter-spacing: 4px;
-    line-height: 1.1;
-    color: var(--cream);
-  }
+.masthead-left h1 em { font-style: italic; color: var(--gold-light); }
 
-  .masthead h1 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
+.masthead-right {
+  text-align: right;
+}
 
-  .masthead-byline {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: rgba(245,238,216,0.5);
-    letter-spacing: 2px;
-    margin-top: 6px;
-  }
+.case-label {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(242,234,216,0.4);
+  display: block;
+  margin-bottom: 3px;
+}
 
-  /* ── GRID ── */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 36px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
+.case-stamp {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(242,234,216,0.65);
+}
 
-  /* ── CARD ── */
-  .card {
-    position: relative;
-    background: linear-gradient(160deg, #1a120a 0%, #0e0b06 60%, #130e08 100%);
-    border: 1px solid rgba(201,168,76,0.25);
-    padding: 0;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 0.7s ease forwards;
-  }
+/* ── LAYOUT ── */
+.app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
 
-  .card:nth-child(1) { animation-delay: 0.1s; }
-  .card:nth-child(2) { animation-delay: 0.2s; }
-  .card:nth-child(3) { animation-delay: 0.3s; }
-  .card:nth-child(4) { animation-delay: 0.4s; }
-  .card:nth-child(5) { animation-delay: 0.5s; }
-  .card:nth-child(6) { animation-delay: 0.6s; }
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--tab-w);
+  background: #0e0b08;
+  border-right: 1px solid rgba(184,134,11,0.2);
+  flex-shrink: 0;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 96px);
+  overflow-y: auto;
+}
 
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
+.sidebar-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: rgba(184,134,11,0.5);
+  text-transform: uppercase;
+  padding: 0 20px 14px;
+  border-bottom: 1px solid rgba(184,134,11,0.1);
+  margin-bottom: 8px;
+}
 
-  /* Corner ornaments */
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image:
-      linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 30%),
-      linear-gradient(315deg, rgba(201,168,76,0.06) 0%, transparent 30%);
-    pointer-events: none;
-    z-index: 1;
-  }
+.tab-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 13px 20px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+  border-left: 3px solid transparent;
+}
 
-  /* Top accent bar — colour per role */
-  .card-accent {
-    height: 3px;
-    width: 100%;
-  }
+.tab-btn:hover { background: rgba(242,234,216,0.04); }
 
-  /* Header section */
-  .card-header {
-    padding: 28px 28px 20px;
-    position: relative;
-    z-index: 2;
-    border-bottom: 1px solid rgba(201,168,76,0.12);
-  }
+.tab-btn.active {
+  background: rgba(242,234,216,0.06);
+}
 
-  .role-badge {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border: 1px solid currentColor;
-    display: inline-block;
-    margin-bottom: 14px;
-    opacity: 0.85;
-  }
+.tab-btn .tb-role {
+  font-family: 'Cinzel', serif;
+  font-size: 7.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 3px;
+}
 
-  .card-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 34px;
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--cream);
-    letter-spacing: 1px;
-  }
+.tab-btn .tb-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  color: var(--paper);
+  display: block;
+  font-weight: 400;
+}
 
-  .card-name em {
-    display: block;
-    font-style: italic;
-    font-size: 20px;
-    color: rgba(245,238,216,0.55);
-    font-weight: 300;
-    margin-top: 2px;
-  }
+.tab-btn .tb-tagline {
+  font-family: 'EB Garamond', serif;
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(242,234,216,0.35);
+  display: block;
+  margin-top: 2px;
+}
 
-  /* Deco divider */
-  .deco-divider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 28px;
-    margin: 20px 0 0;
-  }
+/* colour per character */
+.tab-btn[data-char="rosemary"] { }
+.tab-btn[data-char="rosemary"].active, .tab-btn[data-char="rosemary"]:hover { border-left-color: #c0392b; }
+.tab-btn[data-char="rosemary"] .tb-role { color: #c0392b; }
 
-  .deco-line { flex: 1; height: 1px; background: rgba(201,168,76,0.25); }
+.tab-btn[data-char="george"].active, .tab-btn[data-char="george"]:hover { border-left-color: #4a8fcb; }
+.tab-btn[data-char="george"] .tb-role { color: #4a8fcb; }
 
-  .deco-diamond {
-    width: 6px;
-    height: 6px;
-    border: 1px solid var(--gold-dim);
-    transform: rotate(45deg);
-    flex-shrink: 0;
-  }
+.tab-btn[data-char="iris"].active, .tab-btn[data-char="iris"]:hover { border-left-color: #c47a94; }
+.tab-btn[data-char="iris"] .tb-role { color: #c47a94; }
 
-  /* Body */
-  .card-body {
-    padding: 20px 28px 28px;
-    position: relative;
-    z-index: 2;
-  }
+.tab-btn[data-char="anthony"].active, .tab-btn[data-char="anthony"]:hover { border-left-color: #d4881a; }
+.tab-btn[data-char="anthony"] .tb-role { color: #d4881a; }
 
-  .field {
-    margin-bottom: 18px;
-  }
+.tab-btn[data-char="ruth"].active, .tab-btn[data-char="ruth"]:hover { border-left-color: #2aacac; }
+.tab-btn[data-char="ruth"] .tb-role { color: #2aacac; }
 
-  .field-label {
-    font-family: 'Cinzel', serif;
-    font-size: 8.5px;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-    margin-bottom: 5px;
-  }
+.tab-btn[data-char="race"].active, .tab-btn[data-char="race"]:hover { border-left-color: var(--gold); }
+.tab-btn[data-char="race"] .tb-role { color: var(--gold); }
 
-  .field-text {
-    font-family: 'Crimson Text', serif;
-    font-size: 15.5px;
-    line-height: 1.6;
-    color: rgba(245,238,216,0.82);
-  }
+/* ── MAIN PANEL ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--paper) 0%, #ede3cc 100%);
+}
 
-  /* Traits pills */
-  .traits {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 4px;
-  }
+.panel { display: none; padding: 40px 48px 60px; max-width: 900px; }
+.panel.active { display: block; }
 
-  .trait {
-    font-family: 'Cinzel', serif;
-    font-size: 8px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border: 1px solid rgba(201,168,76,0.3);
-    color: rgba(201,168,76,0.75);
-    background: rgba(201,168,76,0.04);
-  }
+/* ── PANEL HEADER ── */
+.panel-header {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-  /* Motive block */
-  .motive-block {
-    margin-top: 20px;
-    padding: 14px 16px;
-    border-left: 2px solid;
-    background: rgba(0,0,0,0.25);
-    position: relative;
-  }
+.ph-left .ph-role {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
 
-  .motive-block .field-label {
-    margin-bottom: 6px;
-  }
+.ph-left h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text);
+}
 
-  .motive-block .field-text {
-    font-style: italic;
-    font-size: 15px;
-  }
+.ph-left h2 em { font-style: italic; }
 
-  /* Watermark glyph */
-  .card-glyph {
-    position: absolute;
-    bottom: 16px;
-    right: 22px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 80px;
-    font-weight: 300;
-    line-height: 1;
-    opacity: 0.04;
-    color: var(--gold);
-    pointer-events: none;
-    user-select: none;
-    z-index: 1;
-  }
+.threat-meter {
+  text-align: right;
+}
 
-  /* ── ROLE COLOURS ── */
-  /* Victim – crimson */
-  .card[data-role="victim"] .card-accent { background: linear-gradient(to right, #8b0000, #c0392b, #8b0000); }
-  .card[data-role="victim"] .role-badge { color: #c0392b; border-color: #c0392b; }
-  .card[data-role="victim"] .motive-block { border-color: #c0392b; }
+.threat-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  display: block;
+  margin-bottom: 5px;
+}
 
-  /* Husband – slate blue */
-  .card[data-role="husband"] .card-accent { background: linear-gradient(to right, #1a3a5c, #2e6da4, #1a3a5c); }
-  .card[data-role="husband"] .role-badge { color: #4a8fcb; border-color: #4a8fcb; }
-  .card[data-role="husband"] .motive-block { border-color: #2e6da4; }
+.threat-pips {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+}
 
-  /* Sister – dusty rose */
-  .card[data-role="sister"] .card-accent { background: linear-gradient(to right, #5a2a3a, #9b5a70, #5a2a3a); }
-  .card[data-role="sister"] .role-badge { color: #c47a94; border-color: #c47a94; }
-  .card[data-role="sister"] .motive-block { border-color: #9b5a70; }
+.pip {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid currentColor;
+  opacity: 0.25;
+}
 
-  /* Lover – amber */
-  .card[data-role="lover"] .card-accent { background: linear-gradient(to right, #6b3a00, #d4881a, #6b3a00); }
-  .card[data-role="lover"] .role-badge { color: #d4881a; border-color: #d4881a; }
-  .card[data-role="lover"] .motive-block { border-color: #d4881a; }
+.pip.filled { opacity: 1; }
 
-  /* Secretary – teal */
-  .card[data-role="secretary"] .card-accent { background: linear-gradient(to right, #0d3a3a, #1a7a7a, #0d3a3a); }
-  .card[data-role="secretary"] .role-badge { color: #2aacac; border-color: #2aacac; }
-  .card[data-role="secretary"] .motive-block { border-color: #1a7a7a; }
+/* ── SECTION ── */
+.section {
+  margin-bottom: 30px;
+}
 
-  /* Investigator – gold */
-  .card[data-role="investigator"] .card-accent { background: linear-gradient(to right, var(--gold-dim), var(--gold), var(--gold-dim)); }
-  .card[data-role="investigator"] .role-badge { color: var(--gold); border-color: var(--gold); }
-  .card[data-role="investigator"] .motive-block { border-color: var(--gold-dim); }
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8.5px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-  /* ── FOOTER ── */
-  .mastfoot {
-    text-align: center;
-    margin-top: 70px;
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 5px;
-    color: rgba(201,168,76,0.3);
-  }
+.section-label::before {
+  content: '◆';
+  font-size: 7px;
+}
 
-  .mastfoot::before {
-    content: '';
-    display: block;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201,168,76,0.25), transparent);
-    width: 50%;
-    margin: 0 auto 20px;
-  }
+.section p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* ── TWO COL ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+.info-block {
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 14px 16px;
+}
+
+.info-block .ib-label {
+  font-family: 'Cinzel', serif;
+  font-size: 7.5px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+
+.info-block .ib-val {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* traits */
+.traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.trait {
+  font-family: 'Cinzel', serif;
+  font-size: 7.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border: 1px solid currentColor;
+  opacity: 0.8;
+}
+
+/* ── DIALOGUE BLOCK ── */
+.dialogue-block {
+  background: #1a1208;
+  color: var(--paper);
+  padding: 20px 24px;
+  margin-bottom: 14px;
+  position: relative;
+  border-left: 3px solid var(--gold);
+}
+
+.dialogue-block::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  color: var(--gold);
+  opacity: 0.3;
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  line-height: 1;
+}
+
+.dialogue-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.7;
+  padding-left: 24px;
+  color: rgba(242,234,216,0.9);
+}
+
+.dialogue-attr {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(184,134,11,0.7);
+  margin-top: 10px;
+  padding-left: 24px;
+}
+
+/* ── EVIDENCE FILE ── */
+.evidence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.evidence-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.3);
+}
+
+.ev-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  border: 1px solid currentColor;
+  opacity: 0.75;
+}
+
+.ev-body .ev-title {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.ev-body .ev-desc {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* ── SUSPICION VERDICT ── */
+.verdict-box {
+  border: 2px solid currentColor;
+  padding: 16px 20px;
+  margin-top: 10px;
+}
+
+.verdict-box .verdict-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+
+.verdict-box .verdict-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── COLOUR THEMES ── */
+.theme-rosemary { color: #c0392b; border-color: #c0392b; }
+.theme-george   { color: #2e6da4; border-color: #2e6da4; }
+.theme-iris     { color: #9b5a70; border-color: #9b5a70; }
+.theme-anthony  { color: #d4881a; border-color: #d4881a; }
+.theme-ruth     { color: #1a8080; border-color: #1a8080; }
+.theme-race     { color: #b8860b; border-color: #b8860b; }
+
+/* ── READING TIME ── */
+.reading-time {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--text-faint);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reading-time::before { content: '⧗'; font-size: 10px; }
+
+/* scrollbar */
+.sidebar::-webkit-scrollbar, .main::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(184,134,11,0.3); }
+.main::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); }
+
+@media (max-width: 640px) {
+  .app { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: static; display: flex; flex-wrap: wrap; padding: 12px; gap: 4px; }
+  .sidebar-heading { display: none; }
+  .tab-btn { width: auto; padding: 8px 14px; }
+  .tab-btn .tb-tagline { display: none; }
+  .panel { padding: 24px 20px 40px; }
+}
 </style>
 </head>
 <body>
 
 <div class="masthead">
-  <p class="masthead-sub">Agatha Christie &mdash; Character Dossiers</p>
-  <h1><em>Sparkling Cyanide</em></h1>
-  <p class="masthead-byline">Six Suspects. One Deadly Evening. No Survivors of Innocence.</p>
+  <div class="masthead-left">
+    <p class="eyebrow">Confidential Case Dossier</p>
+    <h1><em>Sparkling Cyanide</em> <span style="font-size:0.55em;opacity:0.5">— Agatha Christie, 1945</span></h1>
+  </div>
+  <div class="masthead-right">
+    <span class="case-label">Case Reference</span>
+    <span class="case-stamp">The Rosemary Barton Affair · Luxembourg Restaurant · 1944</span>
+  </div>
 </div>
 
-<div class="grid">
+<div class="app">
 
-  <!-- ROSEMARY BARTON -->
-  <div class="card" data-role="victim">
-    <div class="card-accent"></div>
-    <div class="card-header">
-      <span class="role-badge">The Victim</span>
-      <div class="card-name">
-        Rosemary Barton
-        <em>Beautiful. Brilliant. Buried.</em>
-      </div>
-    </div>
-    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
-    <div class="card-body">
-      <div class="field">
-        <div class="field-label">Background</div>
-        <div class="field-text">A beautiful, wealthy, and socially admired woman of high society — known for her charm, glamour, and the secrets she kept close.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Personality</div>
-        <div class="field-text">Magnetic, confident, and enigmatic. She enjoyed attention and luxury while concealing the darker corners of her life.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Key Traits</div>
-        <div class="traits">
-          <span class="trait">Charismatic</span>
-          <span class="trait">Impulsive</span>
-          <span class="trait">Emotionally Complex</span>
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-heading">Persons of Interest</div>
+
+    <button class="tab-btn active" data-char="rosemary" onclick="show('rosemary', this)">
+      <span class="tb-role">The Victim</span>
+      <span class="tb-name">Rosemary Barton</span>
+      <span class="tb-tagline">Beautiful. Buried. Beloved?</span>
+    </button>
+
+    <button class="tab-btn" data-char="george" onclick="show('george', this)">
+      <span class="tb-role">The Husband</span>
+      <span class="tb-name">George Barton</span>
+      <span class="tb-tagline">Grief — or guilt?</span>
+    </button>
+
+    <button class="tab-btn" data-char="iris" onclick="show('iris', this)">
+      <span class="tb-role">The Sister</span>
+      <span class="tb-name">Iris Marle</span>
+      <span class="tb-tagline">Shadow and inheritance</span>
+    </button>
+
+    <button class="tab-btn" data-char="anthony" onclick="show('anthony', this)">
+      <span class="tb-role">The Lover</span>
+      <span class="tb-name">Anthony Browne</span>
+      <span class="tb-tagline">Passion beyond reason</span>
+    </button>
+
+    <button class="tab-btn" data-char="ruth" onclick="show('ruth', this)">
+      <span class="tb-role">The Secretary</span>
+      <span class="tb-name">Ruth Lessing</span>
+      <span class="tb-tagline">Ambition beneath composure</span>
+    </button>
+
+    <button class="tab-btn" data-char="race" onclick="show('race', this)">
+      <span class="tb-role">The Investigator</span>
+      <span class="tb-name">Colonel Race</span>
+      <span class="tb-tagline">Servant of the truth alone</span>
+    </button>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ══════════ ROSEMARY ══════════ -->
+    <div class="panel active" id="panel-rosemary">
+      <div class="panel-header theme-rosemary">
+        <div class="ph-left">
+          <span class="ph-role theme-rosemary">The Victim</span>
+          <h2>Rosemary <em>Barton</em></h2>
+        </div>
+        <div class="threat-meter">
+          <span class="threat-label">Suspicion Level</span>
+          <div class="threat-pips theme-rosemary">
+            <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          </div>
         </div>
       </div>
-      <div class="motive-block">
-        <div class="field-label">Motive Against Her</div>
-        <div class="field-text">Her wealth, romantic entanglements, and hidden secrets bred jealousy, resentment, and financial temptation among those closest to her.</div>
-      </div>
-    </div>
-    <div class="card-glyph">R</div>
-  </div>
 
-  <!-- GEORGE BARTON -->
-  <div class="card" data-role="husband">
-    <div class="card-accent"></div>
-    <div class="card-header">
-      <span class="role-badge">The Husband</span>
-      <div class="card-name">
-        George Barton
-        <em>Devoted. Determined. Dangerous?</em>
-      </div>
-    </div>
-    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
-    <div class="card-body">
-      <div class="field">
-        <div class="field-label">Background</div>
-        <div class="field-text">A successful businessman and Rosemary's husband. After her death, he becomes consumed by one singular purpose: to uncover the truth.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Personality</div>
-        <div class="field-text">Reserved, intelligent, and emotionally restrained. Initially appears devoted, though deeper tensions within the marriage may tell another story.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Key Traits</div>
-        <div class="traits">
-          <span class="trait">Analytical</span>
-          <span class="trait">Controlled</span>
-          <span class="trait">Determined</span>
+      <div class="reading-time">Estimated reading time: 2 min</div>
+
+      <div class="two-col">
+        <div class="info-block">
+          <div class="ib-label">Background</div>
+          <div class="ib-val">Wealthy socialite; wife of George Barton. Died at the Luxembourg Restaurant on the evening of November 2nd — ostensibly by her own hand (cyanide poisoning). Death initially ruled suicide.</div>
+        </div>
+        <div class="info-block">
+          <div class="ib-label">Key Traits</div>
+          <div class="ib-val">
+            <div class="traits">
+              <span class="trait theme-rosemary">Charismatic</span>
+              <span class="trait theme-rosemary">Impulsive</span>
+              <span class="trait theme-rosemary">Secretive</span>
+              <span class="trait theme-rosemary">Magnetic</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="motive-block">
-        <div class="field-label">Suspected Motive</div>
-        <div class="field-text">Financial gain through inheritance and a simmering jealousy over Rosemary's suspected romantic affairs outside their marriage.</div>
-      </div>
-    </div>
-    <div class="card-glyph">G</div>
-  </div>
 
-  <!-- IRIS MARLE -->
-  <div class="card" data-role="sister">
-    <div class="card-accent"></div>
-    <div class="card-header">
-      <span class="role-badge">The Sister</span>
-      <div class="card-name">
-        Iris Marle
-        <em>Overlooked. Observant. Free?</em>
+      <div class="section">
+        <div class="section-label">Profile</div>
+        <p>Rosemary Barton was by all accounts the most radiant woman in any room she entered — beautiful, witty, and restlessly social. Her marriage to George Barton was comfortable but increasingly strained by her emotional complexity and suspected liaisons. She suffered a bout of influenza in the weeks before her death, leaving her nerves frayed. Many noted she seemed depressed, lending credence to the original suicide verdict. However, those who knew her intimately insisted she was not the type to give up.</p>
       </div>
-    </div>
-    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
-    <div class="card-body">
-      <div class="field">
-        <div class="field-label">Background</div>
-        <div class="field-text">Rosemary's quieter, less flamboyant younger sister — a woman who spent her life in the long shadow cast by her glamorous sibling.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Personality</div>
-        <div class="field-text">Gentle, thoughtful, and somewhat insecure. She struggles beneath the weight of constant comparison to the woman the world adored.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Key Traits</div>
-        <div class="traits">
-          <span class="trait">Sensitive</span>
-          <span class="trait">Modest</span>
-          <span class="trait">Observant</span>
+
+      <div class="section">
+        <div class="section-label">Key Dialogues & Testimony</div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">She was the kind of woman who made men feel that life was worth living — and then, quite carelessly, made them feel it wasn't.</div>
+          <div class="dialogue-attr">— Narrator's observation, Chapter II</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">I'm tired, George. Terribly, terribly tired of — everything.</div>
+          <div class="dialogue-attr">— Rosemary to George, recalled in his memory, Chapter I</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">Rosemary was not a woman who would kill herself. She was too fond of life — of parties, of men, of the whole glittering show.</div>
+          <div class="dialogue-attr">— Iris Marle, Chapter V</div>
         </div>
       </div>
-      <div class="motive-block">
-        <div class="field-label">Suspected Motive</div>
-        <div class="field-text">Rosemary's death could bring financial inheritance — and, at last, liberation from a life spent diminished beside a brighter flame.</div>
-      </div>
-    </div>
-    <div class="card-glyph">I</div>
-  </div>
 
-  <!-- ANTHONY BROWNE -->
-  <div class="card" data-role="lover">
-    <div class="card-accent"></div>
-    <div class="card-header">
-      <span class="role-badge">The Lover</span>
-      <div class="card-name">
-        Anthony Browne
-        <em>Passionate. Possessive. Unravelling.</em>
-      </div>
-    </div>
-    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
-    <div class="card-body">
-      <div class="field">
-        <div class="field-label">Background</div>
-        <div class="field-text">A passionate and somewhat reckless man, deeply entangled in a romantic affair with Rosemary — an affair that consumed him entirely.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Personality</div>
-        <div class="field-text">Intense, emotional, and impulsive. His devotion walked the fine and terrifying line between love and obsession.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Key Traits</div>
-        <div class="traits">
-          <span class="trait">Passionate</span>
-          <span class="trait">Dramatic</span>
-          <span class="trait">Possessive</span>
+      <div class="section">
+        <div class="section-label">Evidence File</div>
+        <div class="evidence-list">
+          <div class="evidence-item">
+            <div class="ev-icon theme-rosemary">☠</div>
+            <div class="ev-body">
+              <div class="ev-title">Cause of Death — Potassium Cyanide</div>
+              <div class="ev-desc">Cyanide found in her champagne glass at the Luxembourg Restaurant table. Originally ruled self-administered. George Barton later suspects deliberate substitution of the contents by another person at the table.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-rosemary">✉</div>
+            <div class="ev-body">
+              <div class="ev-title">Anonymous Letters</div>
+              <div class="ev-desc">George receives two unsigned letters asserting that Rosemary was murdered. The letters demonstrate intimate knowledge of the seating arrangement that night — knowledge only a dinner guest could possess.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-rosemary">♥</div>
+            <div class="ev-body">
+              <div class="ev-title">Romantic Entanglements</div>
+              <div class="ev-desc">Evidence of an affair with Stephen Farraday (a rising politician) surfaces. Rosemary had also maintained a flirtatious dynamic with Anthony Browne, whose real identity and background remain unclear.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-rosemary">🏦</div>
+            <div class="ev-body">
+              <div class="ev-title">Estate & Will</div>
+              <div class="ev-desc">Her estate passes substantially to George and, in part, to Iris. The exact allocation and terms create financial incentives for multiple persons at the table that evening.</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="motive-block">
-        <div class="field-label">Suspected Motive</div>
-        <div class="field-text">Romantic jealousy, obsessive attachment, and the emotional turmoil of a man who could not bear to share — or lose — what he believed was his.</div>
-      </div>
-    </div>
-    <div class="card-glyph">A</div>
-  </div>
 
-  <!-- RUTH LESSING -->
-  <div class="card" data-role="secretary">
-    <div class="card-accent"></div>
-    <div class="card-header">
-      <span class="role-badge">The Secretary</span>
-      <div class="card-name">
-        Ruth Lessing
-        <em>Efficient. Ambitious. Calculating.</em>
-      </div>
-    </div>
-    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
-    <div class="card-body">
-      <div class="field">
-        <div class="field-label">Background</div>
-        <div class="field-text">Efficient and highly intelligent, she works in close proximity to George Barton — quietly managing his affairs with immaculate discretion.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Personality</div>
-        <div class="field-text">Ambitious, controlled, and keenly observant. Behind her professional composure lies a woman of formidable personal ambition and quiet longing.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Key Traits</div>
-        <div class="traits">
-          <span class="trait">Calculating</span>
-          <span class="trait">Disciplined</span>
-          <span class="trait">Discreet</span>
+      <div class="section">
+        <div class="section-label">Investigator's Note</div>
+        <div class="verdict-box theme-rosemary">
+          <div class="verdict-label">Colonel Race — Assessment</div>
+          <div class="verdict-text">The influenza, the low spirits, the glass — all too convenient. Suicide requires a degree of resolution Rosemary Barton simply did not possess. This was arranged. The question is not whether she was murdered; it is who, among six people at a dinner table, had the means, the moment, and the motive.</div>
         </div>
       </div>
-      <div class="motive-block">
-        <div class="field-label">Suspected Motive</div>
-        <div class="field-text">A secret love for George and the tantalising prospect of ascending — socially and financially — if Rosemary were no longer in the picture.</div>
-      </div>
     </div>
-    <div class="card-glyph">L</div>
-  </div>
 
-  <!-- COLONEL RACE -->
-  <div class="card" data-role="investigator">
-    <div class="card-accent"></div>
-    <div class="card-header">
-      <span class="role-badge">The Investigator</span>
-      <div class="card-name">
-        Colonel Race
-        <em>Perceptive. Patient. Relentless.</em>
-      </div>
-    </div>
-    <div class="deco-divider"><div class="deco-line"></div><div class="deco-diamond"></div><div class="deco-line"></div></div>
-    <div class="card-body">
-      <div class="field">
-        <div class="field-label">Background</div>
-        <div class="field-text">A seasoned investigator with a distinguished record in complex, high-stakes cases. He has seen the worst of human nature — and remained unmoved.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Personality</div>
-        <div class="field-text">Calm, logical, and highly perceptive. He reads people the way others read books — carefully, quietly, and with devastating accuracy.</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Key Traits</div>
-        <div class="traits">
-          <span class="trait">Analytical</span>
-          <span class="trait">Patient</span>
-          <span class="trait">Authoritative</span>
+    <!-- ══════════ GEORGE ══════════ -->
+    <div class="panel" id="panel-george">
+      <div class="panel-header theme-george">
+        <div class="ph-left">
+          <span class="ph-role theme-george">The Husband</span>
+          <h2>George <em>Barton</em></h2>
+        </div>
+        <div class="threat-meter">
+          <span class="threat-label">Suspicion Level</span>
+          <div class="threat-pips theme-george">
+            <div class="pip filled"></div><div class="pip filled"></div><div class="pip filled"></div><div class="pip"></div><div class="pip"></div>
+          </div>
         </div>
       </div>
-      <div class="motive-block">
-        <div class="field-label">Personal Motive</div>
-        <div class="field-text">None. He serves only one master: the truth — and he will not rest until it is laid bare for all to see.</div>
+
+      <div class="reading-time">Estimated reading time: 2 min</div>
+
+      <div class="two-col">
+        <div class="info-block">
+          <div class="ib-label">Background</div>
+          <div class="ib-val">Prosperous businessman. Devoted husband — or so he appeared. After Rosemary's death, he orchestrates a second dinner at the Luxembourg, intending to expose her killer and re-enact the fatal evening.</div>
+        </div>
+        <div class="info-block">
+          <div class="ib-label">Key Traits</div>
+          <div class="ib-val">
+            <div class="traits">
+              <span class="trait theme-george">Analytical</span>
+              <span class="trait theme-george">Controlled</span>
+              <span class="trait theme-george">Determined</span>
+              <span class="trait theme-george">Concealing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Profile</div>
+        <p>George Barton presents himself as a man consumed by grief and justice. He is methodical, restrained, and intelligent — the sort of man who solves problems by thinking rather than feeling. Yet investigators note a dissonance: his marriage to Rosemary had grown cold, and his knowledge of her romantic life suggests he had been watching her long before her death. The question the case turns on is whether his investigation is the act of a grieving husband — or an extraordinarily audacious guilty man covering his tracks.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Key Dialogues & Testimony</div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">She was murdered. I'm sure of it. And I intend to find out who did it — even if it takes the rest of my life.</div>
+          <div class="dialogue-attr">— George to Colonel Race, Chapter VII</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">He had loved her in his quiet, undemonstrative way. But had she known? Had she cared?</div>
+          <div class="dialogue-attr">— Narrator's reflection on George, Chapter III</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">I know who was sitting where. I know what was on the table. I know — almost — what happened. I just need one more piece.</div>
+          <div class="dialogue-attr">— George to Iris, Chapter IX</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Evidence File</div>
+        <div class="evidence-list">
+          <div class="evidence-item">
+            <div class="ev-icon theme-george">📋</div>
+            <div class="ev-body">
+              <div class="ev-title">The Re-enactment Dinner</div>
+              <div class="ev-desc">George invites the same guests back to the Luxembourg on the anniversary of Rosemary's death. He reveals mid-dinner that he knows Rosemary was poisoned. He is himself found dead before the evening is out — poisoned by the same means.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-george">💰</div>
+            <div class="ev-body">
+              <div class="ev-title">Financial Beneficiary</div>
+              <div class="ev-desc">As Rosemary's husband, George inherited the majority of her considerable estate. He had full knowledge of the will's terms well before her death.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-george">💌</div>
+            <div class="ev-body">
+              <div class="ev-title">Awareness of the Affair</div>
+              <div class="ev-desc">Circumstantial evidence suggests George knew of Rosemary's relationship with Stephen Farraday. Whether this knowledge generated lethal jealousy — or was simply filed away by a controlled man — remains contested.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Investigator's Note</div>
+        <div class="verdict-box theme-george">
+          <div class="verdict-label">Colonel Race — Assessment</div>
+          <div class="verdict-text">Barton knew too much. His reconstruction of the evening was precise, his seating knowledge detailed — yet he claims ignorance of the killer's identity. Either he is extraordinarily close to the truth, or he is the truth. His own murder complicates the picture considerably.</div>
+        </div>
       </div>
     </div>
-    <div class="card-glyph">C</div>
-  </div>
 
+    <!-- ══════════ IRIS ══════════ -->
+    <div class="panel" id="panel-iris">
+      <div class="panel-header theme-iris">
+        <div class="ph-left">
+          <span class="ph-role theme-iris">The Sister</span>
+          <h2>Iris <em>Marle</em></h2>
+        </div>
+        <div class="threat-meter">
+          <span class="threat-label">Suspicion Level</span>
+          <div class="threat-pips theme-iris">
+            <div class="pip filled"></div><div class="pip filled"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-time">Estimated reading time: 2 min</div>
+
+      <div class="two-col">
+        <div class="info-block">
+          <div class="ib-label">Background</div>
+          <div class="ib-val">Rosemary's younger sister. Quieter, less celebrated. Stood always at the edge of Rosemary's light. Inherited a portion of the estate. Present at the Luxembourg both on the night of Rosemary's death and at the re-enactment dinner.</div>
+        </div>
+        <div class="info-block">
+          <div class="ib-label">Key Traits</div>
+          <div class="ib-val">
+            <div class="traits">
+              <span class="trait theme-iris">Sensitive</span>
+              <span class="trait theme-iris">Observant</span>
+              <span class="trait theme-iris">Modest</span>
+              <span class="trait theme-iris">Repressed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Profile</div>
+        <p>Iris Marle is the novel's moral centre — its clearest conscience. She loved her sister but lived her life in Rosemary's shadow, acutely aware that she would never command the same rooms or hearts. Her inheritance upon Rosemary's death was real and significant. Yet Iris's character is consistently portrayed as gentle and emotionally honest. She falls into a quiet, genuine relationship with Anthony Browne during the course of the investigation — a relationship that itself becomes a point of danger. Iris is perhaps the key witness: she was seated close, she watched everything, and she remembers.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Key Dialogues & Testimony</div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">I was always the other one. The quiet one. The one people forgot when Rosemary walked in.</div>
+          <div class="dialogue-attr">— Iris to Anthony Browne, Chapter VI</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">She wasn't happy, whatever people say. Rosemary was never really happy — she just made everything look beautiful.</div>
+          <div class="dialogue-attr">— Iris to Colonel Race, Chapter X</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">I saw something that night. I didn't understand what it meant. Now I think — I think I do.</div>
+          <div class="dialogue-attr">— Iris, re-enactment evening, Chapter XIV</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Evidence File</div>
+        <div class="evidence-list">
+          <div class="evidence-item">
+            <div class="ev-icon theme-iris">👁</div>
+            <div class="ev-body">
+              <div class="ev-title">Seated Witness — Both Dinners</div>
+              <div class="ev-desc">Iris was present at the original fatal dinner and the re-enactment. Her proximity to events and observational acuity make her the investigation's most valuable — and vulnerable — witness.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-iris">🏦</div>
+            <div class="ev-body">
+              <div class="ev-title">Inheritance</div>
+              <div class="ev-desc">Rosemary's will left Iris a notable sum. The financial motive exists — though Iris's character and conduct throughout the novel consistently undercut any reading of deliberate calculation.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-iris">⚠</div>
+            <div class="ev-body">
+              <div class="ev-title">Attempted Poisoning of Iris</div>
+              <div class="ev-desc">During the re-enactment dinner, Iris herself is targeted — her glass tampered with. This near-fatal incident strongly exculpates her as the original killer and identifies her as a dangerous loose end to someone else.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Investigator's Note</div>
+        <div class="verdict-box theme-iris">
+          <div class="verdict-label">Colonel Race — Assessment</div>
+          <div class="verdict-text">Miss Marle was a target, not a perpetrator. The attempt on her life was the killer's mistake — it revealed that she had seen something, or knew something, that made her dangerous. She is our witness, and we must protect her accordingly.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ ANTHONY ══════════ -->
+    <div class="panel" id="panel-anthony">
+      <div class="panel-header theme-anthony">
+        <div class="ph-left">
+          <span class="ph-role theme-anthony">The Lover</span>
+          <h2>Anthony <em>Browne</em></h2>
+        </div>
+        <div class="threat-meter">
+          <span class="threat-label">Suspicion Level</span>
+          <div class="threat-pips theme-anthony">
+            <div class="pip filled"></div><div class="pip filled"></div><div class="pip filled"></div><div class="pip filled"></div><div class="pip"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-time">Estimated reading time: 2 min</div>
+
+      <div class="two-col">
+        <div class="info-block">
+          <div class="ib-label">Background</div>
+          <div class="ib-val">Romantic attachment to Rosemary; also, later, to Iris. His past is murky — possibly connected to intelligence work or criminal networks. His true surname and history are suppressed. Present at both the original dinner and the re-enactment.</div>
+        </div>
+        <div class="info-block">
+          <div class="ib-label">Key Traits</div>
+          <div class="ib-val">
+            <div class="traits">
+              <span class="trait theme-anthony">Passionate</span>
+              <span class="trait theme-anthony">Possessive</span>
+              <span class="trait theme-anthony">Mysterious</span>
+              <span class="trait theme-anthony">Impulsive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Profile</div>
+        <p>Anthony Browne is the novel's great enigma. He is attractive, charming, and clearly not who he claims to be — his past is a series of careful omissions. He was involved with Rosemary before her death, and his relationship with Iris Marle post-mortem seems genuine, but the timing raises eyebrows. His emotional intensity — most evident when pressed — borders on volatility. The novel ultimately reveals him as a man operating under a false name for reasons connected to underworld criminality, though his specific involvement in Rosemary's death is the question the investigation must answer.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Key Dialogues & Testimony</div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">My past is my own business. I'm not proud of all of it — but it has nothing to do with Rosemary's death. Nothing.</div>
+          <div class="dialogue-attr">— Anthony Browne to Colonel Race, Chapter XI</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">I loved her. I won't say I didn't. But love isn't always enough to save someone from themselves.</div>
+          <div class="dialogue-attr">— Anthony to Iris, Chapter VIII</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">Browne — if that is indeed his name — was evasive in a manner that spoke not of innocence, but of long practice at concealment.</div>
+          <div class="dialogue-attr">— Colonel Race's case notes, Chapter XII</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Evidence File</div>
+        <div class="evidence-list">
+          <div class="evidence-item">
+            <div class="ev-icon theme-anthony">🎭</div>
+            <div class="ev-body">
+              <div class="ev-title">False Identity</div>
+              <div class="ev-desc">"Anthony Browne" is not his real name. He is connected to a criminal gang operating under the alias Tony Morelli. His intelligence connections suggest he may have been placed near Rosemary deliberately — though by whom, and for what purpose, is unclear.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-anthony">🍾</div>
+            <div class="ev-body">
+              <div class="ev-title">Proximity to the Glass</div>
+              <div class="ev-desc">Seating records from the Luxembourg confirm Anthony was positioned within reach of Rosemary's glass during the dinner. His movements during the evening have not been fully accounted for.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-anthony">💔</div>
+            <div class="ev-body">
+              <div class="ev-title">Rejected Before Death</div>
+              <div class="ev-desc">Testimony suggests Rosemary had grown cooler toward Anthony in the weeks before her death — possibly transferring her attention to Stephen Farraday. The emotional motive of a spurned, obsessive lover is noted in the record.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Investigator's Note</div>
+        <div class="verdict-box theme-anthony">
+          <div class="verdict-label">Colonel Race — Assessment</div>
+          <div class="verdict-text">Browne conceals too much too smoothly. A man with nothing to hide does not practise concealment with such elegance. Yet the attempt on Miss Marle's life — whom he demonstrably cares for — muddles the picture. I am not yet ready to place the glass in his hand.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ RUTH ══════════ -->
+    <div class="panel" id="panel-ruth">
+      <div class="panel-header theme-ruth">
+        <div class="ph-left">
+          <span class="ph-role theme-ruth">The Secretary</span>
+          <h2>Ruth <em>Lessing</em></h2>
+        </div>
+        <div class="threat-meter">
+          <span class="threat-label">Suspicion Level</span>
+          <div class="threat-pips theme-ruth">
+            <div class="pip filled"></div><div class="pip filled"></div><div class="pip filled"></div><div class="pip filled"></div><div class="pip filled"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-time">Estimated reading time: 2 min</div>
+
+      <div class="two-col">
+        <div class="info-block">
+          <div class="ib-label">Background</div>
+          <div class="ib-val">George Barton's private secretary. Intelligent, efficient, and thoroughly indispensable. Her feelings for George are well-concealed — until they are not. Present at the re-enactment dinner. Her proximity to George's affairs gave her access, opportunity, and foreknowledge.</div>
+        </div>
+        <div class="info-block">
+          <div class="ib-label">Key Traits</div>
+          <div class="ib-val">
+            <div class="traits">
+              <span class="trait theme-ruth">Calculating</span>
+              <span class="trait theme-ruth">Disciplined</span>
+              <span class="trait theme-ruth">Discreet</span>
+              <span class="trait theme-ruth">Ambitious</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Profile</div>
+        <p>Ruth Lessing is the most dangerous kind of suspect: one who appears, at every turn, to be merely competent. She is professional, composed, and unremarkable in social settings — precisely the kind of person who moves through a crowded restaurant unobserved. Her love for George Barton was not secret to herself, only to others. She had managed his affairs — and by extension, knew Rosemary's weaknesses, finances, and secrets — as a matter of routine. The question investigators must ask is how far a controlled, intelligent woman would go when the object of her devotion was occupied by another.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Key Dialogues & Testimony</div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">Miss Lessing was the kind of woman you trusted completely — which, of course, was precisely the danger.</div>
+          <div class="dialogue-attr">— Narrator's observation, Chapter IV</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">Mr Barton relies on me. That is all. There is nothing more to say on the matter.</div>
+          <div class="dialogue-attr">— Ruth Lessing to Colonel Race, Chapter XIII</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">She did not weep for Rosemary. That, more than anything else, was what I noticed.</div>
+          <div class="dialogue-attr">— Iris Marle, reflecting on Ruth, Chapter V</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Evidence File</div>
+        <div class="evidence-list">
+          <div class="evidence-item">
+            <div class="ev-icon theme-ruth">🔑</div>
+            <div class="ev-body">
+              <div class="ev-title">Access to George's Affairs</div>
+              <div class="ev-desc">As his secretary, Ruth had unsupervised access to George's correspondence, finances, and schedule. She knew of the anonymous letters. She knew of the re-enactment plan in advance — and had opportunity to prepare accordingly.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-ruth">💊</div>
+            <div class="ev-body">
+              <div class="ev-title">Means — Cyanide Access</div>
+              <div class="ev-desc">Ruth's movements in the days preceding both dinners have gaps. Investigators note that potassium cyanide, while not easily obtainable, is accessible to someone with connections to commercial or industrial supply chains — as a well-connected secretary might have.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-ruth">💔</div>
+            <div class="ev-body">
+              <div class="ev-title">Suppressed Emotional Motive</div>
+              <div class="ev-desc">Multiple witnesses confirm that Ruth's professional devotion to George Barton exceeded the boundaries of the employer-employee relationship. Her feelings, long disciplined into invisibility, represent a powerful and underestimated motive.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Investigator's Note</div>
+        <div class="verdict-box theme-ruth">
+          <div class="verdict-label">Colonel Race — Assessment</div>
+          <div class="verdict-text">Ruth Lessing is the prime suspect by the weight of evidence. She had access, knowledge, motive, and composure — the four prerequisites of a successful murder. Her failure to grieve is not evidence in law. But it is evidence of something. I watch her very carefully.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ RACE ══════════ -->
+    <div class="panel" id="panel-race">
+      <div class="panel-header theme-race">
+        <div class="ph-left">
+          <span class="ph-role theme-race">The Investigator</span>
+          <h2>Colonel <em>Race</em></h2>
+        </div>
+        <div class="threat-meter">
+          <span class="threat-label">Suspicion Level</span>
+          <div class="threat-pips theme-race">
+            <div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-time">Estimated reading time: 2 min</div>
+
+      <div class="two-col">
+        <div class="info-block">
+          <div class="ib-label">Background</div>
+          <div class="ib-val">Veteran investigator; member of British intelligence. Brought in by George Barton to assist privately. Has worked with Hercule Poirot on prior cases (referenced in the text). His methods rely on psychology and patient observation rather than procedure.</div>
+        </div>
+        <div class="info-block">
+          <div class="ib-label">Key Traits</div>
+          <div class="ib-val">
+            <div class="traits">
+              <span class="trait theme-race">Analytical</span>
+              <span class="trait theme-race">Patient</span>
+              <span class="trait theme-race">Authoritative</span>
+              <span class="trait theme-race">Perceptive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Profile</div>
+        <p>Colonel Race is a man of long experience and short sentences. He has seen the worst that human beings do to one another, and he approaches each new crime without surprise but with absolute rigour. He is not sentimental — but he is just. His investigation in <em>Sparkling Cyanide</em> is characterised by his willingness to follow evidence wherever it leads, even when it leads to someone ostensibly above suspicion. He does not arrest on instinct. He waits for the moment when a person's story, held up to the light, shows precisely where the lie is.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Key Dialogues & Testimony</div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">Motive is overrated. Most murders are committed by the person with the simplest opportunity. We must establish who could have done it before we ask why they would.</div>
+          <div class="dialogue-attr">— Colonel Race to George Barton, Chapter VII</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">A murderer who returns to the scene is not brave — they are compelled. Something unfinished brought this person back to the Luxembourg. That compulsion will undo them.</div>
+          <div class="dialogue-attr">— Colonel Race, Chapter XIII</div>
+        </div>
+        <div class="dialogue-block">
+          <div class="dialogue-text">The truth in these cases is almost always disappointingly human. Not a monster — just a person who wanted something badly enough.</div>
+          <div class="dialogue-attr">— Colonel Race, closing interview, Chapter XVI</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Investigative Method — Key Observations</div>
+        <div class="evidence-list">
+          <div class="evidence-item">
+            <div class="ev-icon theme-race">🗺</div>
+            <div class="ev-body">
+              <div class="ev-title">Seating Reconstruction</div>
+              <div class="ev-desc">Race reconstructed the exact seating arrangement at the Luxembourg on the night of Rosemary's death, identifying which guests could physically have reached her glass during the dinner without being observed.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-race">📝</div>
+            <div class="ev-body">
+              <div class="ev-title">Analysis of Anonymous Letters</div>
+              <div class="ev-desc">The two letters sent to George contained information only a dinner guest would know. Race deduced from their phrasing and specificity that the author either witnessed the poisoning — or committed it and wished to redirect inquiry.</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-icon theme-race">🔍</div>
+            <div class="ev-body">
+              <div class="ev-title">Psychological Profiling</div>
+              <div class="ev-desc">Race's final identification of the killer rests on psychological reasoning — specifically, on recognising that only one person at the table had no emotional reaction to Rosemary's death that was not, in some essential way, performed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Investigator's Closing Statement</div>
+        <div class="verdict-box theme-race">
+          <div class="verdict-label">Colonel Race — Final Word</div>
+          <div class="verdict-text">This case was solved not by a fingerprint or a footprint, but by a grief that was absent when it should have been present, and present when it had no honest reason to be. The poisoner was hiding in plain sight — as they always are. The trick is simply to look at the right things.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
 
-<div class="mastfoot">A. Christie &nbsp;·&nbsp; 1945 &nbsp;·&nbsp; Six Characters &nbsp;·&nbsp; One Murder</div>
-
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
 </body>
 </html>
